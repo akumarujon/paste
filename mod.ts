@@ -18,4 +18,8 @@ app.post("/", async(req, res) => {
     res.send((await getAll()).pop())
 });
 
+app.get('/doc/', async(_req, res) => {
+    res.redirect("")
+})
+
 app.listen(3000);
