@@ -18,8 +18,8 @@ app.post("/", async(req, res) => {
     res.send((await getAll()).pop())
 });
 
-app.get('/doc/', async(_req, res) => {
-    res.redirect("")
+app.get('/doc/', (_req, res) => {
+    res.redirect("https://github.com/akumarujon/paste#documentation")
 })
 
 app.listen(3000);
