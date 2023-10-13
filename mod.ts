@@ -8,6 +8,10 @@ app.get("/", async(_req, res) => {
     res.send(await getAll())
 });
 
+app.get('/doc/', (_req, res) => {
+    res.redirect("https://github.com/akumarujon/paste#documentation")
+})
+
 app.get("/:id", async(req, res) => {
     res.send(await get(req.params.id as unknown as number))
 });
@@ -18,8 +22,5 @@ app.post("/", async(req, res) => {
     res.send((await getAll()).pop())
 });
 
-app.get('/doc/', (_req, res) => {
-    res.redirect("https://github.com/akumarujon/paste#documentation")
-})
 
 app.listen(3000);
