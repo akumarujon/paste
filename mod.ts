@@ -19,8 +19,9 @@ app.get("/:id", async(req, res) => {
 app.post("/", async(req, res) => {
     await create(req.body.body);
 
-    res.send((await getAll()).pop())
+    res.send(`https://pst.deno.dev/${(await getAll()).pop().id}\n`)
 });
 
 
 app.listen(3000);
+console.log("http://localhost:3000")
