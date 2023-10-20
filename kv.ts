@@ -17,9 +17,9 @@ async function create(body: string): Promise<void> {
   }
 }
 
-async function get(id:number): Promise<Paste> {
+async function get(id:number | string): Promise<Paste> {
     const data = (await kv.get(['pastes'])).value as Paste[];
-    if(data.length != 0) return data[id];
+    if(data.length != 0) return data[id as number];
     else return {} as Paste;
 }
 

@@ -1,27 +1,25 @@
-import { opine, json } from "./deps.ts"
+import { Hono } from "./deps.ts"
 import { get, getAll, create } from "./kv.ts";
 
-const app = opine()
-app.use(json())
+const app = new Hono();
 
-app.get("/", async(_req, res) => {
-    res.send(await getAll())
+app.get("/", async(ctx) => {
+    return ctx.json(await getAll())
 });
 
-app.get('/doc/', (_req, res) => {
-    res.redirect("https://github.com/akumarujon/paste#documentation")
-})
-
-app.get("/:id", async(req, res) => {
-    res.send(await get(req.params.id as unknown as number))
+app.get('/doc/', (ctx) => {
+    return ctx.redirect("https://github.com/akumarujon/paste#documentation")
 });
 
-app.post("/", async(req, res) => {
-    await create(req.body.body);
+app.get("/:id", async(ctx) => {
+    console.log()
+    return ctx.json(await get(ctx.req.param().id))
+});
 
-    res.send(`https://pst.deno.dev/${(await getAll()).pop().id}\n`)
+app.post("/",async (ctx) => {
+    await create((await ctx.req.json()).body);
+    return ctx.json((await getAll()).pop())
 });
 
 
-app.listen(3000);
-console.log("http://localhost:3000")
+Deno.serve(app.fetch);
